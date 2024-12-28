@@ -1,0 +1,20 @@
+---
+import { actions } from 'astro:actions';
+
+type Props = {
+  placeId: string;
+};
+
+const { placeId } = Astro.props;
+
+const availability = await Astro.callAction(actions.getAvailability.orThrow, placeId);
+const { isAvailable, message } = availability;
+---
+
+{
+  isAvailable ? (
+    <p class='bg-green-600 mt-5 text-center rounded-xl p-2'>{message}</p>
+  ) : (
+    <p class='bg-red-600 mt-5 text-center rounded-xl p-2'>{message}</p>
+  )
+}
